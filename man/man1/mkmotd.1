@@ -1,0 +1,37 @@
+.TH "mkmotd" 1 2018-02-01 "mkmotd"
+.SH NAME
+mkmotd \- generate a message of the day out of multiple input files
+.SH SYNOPSIS
+.BR "mkmotd " { " \-\-help " | " \-\-version " }
+.SH DESCRIPTION
+\fBmkmotd\fR is a simple command to create the message of the file
+\fI/etc/motd\fR out of multiple input files in \fI/etc/motd.d\fR.
+
+Every file from the source directory \fI/etc/motd.d\fR is read in
+alphabetical order (depends on \fILC_COLLATE\fR) and written to
+\fI/etc/motd\fR.
+
+Only regular files are handled. Files in subdirectories are ignored.
+.SH OPTIONS
+.TP
+.B \-h, \-\-help
+displays a help message and exists.
+.TP
+.B \-\-version
+displays the version and exists.
+.SH "EXIT STATUS"
+.TP
+.B 0
+Successful program execution.
+.TP
+.B 1
+Error while writing file
+.SH FILES
+.TP
+.I /etc/motd
+Message of the day file that will be created
+.TP
+.I /etc/motd.d
+Directory with multiple input files
+.SH AUTHOR
+Stefan Schulte <stschulte@posteo.de>
