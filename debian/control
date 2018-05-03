@@ -1,0 +1,12 @@
+Source: mkmotd
+Maintainer: Stefan Schulte <stschulte@posteo.de>
+Section: admin
+Priority: optional
+Standards-Version: 3.9.4
+Build-Depends: debhelper (>=9)
+
+Package: mkmotd
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: mkmotd can be used to generate the message
+ of the day file out of multiple individual files.

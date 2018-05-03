@@ -52,3 +52,11 @@ make install
 ```
 
 ## Build and install through package
+
+### Build debian package
+
+Simply run `dpkg-buildpackage`
+
+### Build redhat package
+
+Run `redhat/build.sh` to build an RPM package
