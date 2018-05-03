@@ -11,6 +11,10 @@
 #include "config.h"
 #include "utils.h"
 
+#ifdef HAVE_SELINUX
+#include <selinux/selinux.h>
+#endif
+
 #define BUFSIZE 2048
 
 int usage(int exit) {
@@ -66,6 +70,9 @@ int main(int argc, char** argv) {
   glob_t globres;
   struct stat sb;
   int i = 1;
+#ifdef HAVE_SELINUX
+  security_context_t con = NULL;
+#endif
 
   /* concat to a temporary file to perform
    * an atomic replace */
@@ -105,6 +112,21 @@ int main(int argc, char** argv) {
         if(fchmod(ftmp, sb.st_mode & 07777) < 0)
           fprintf(stderr, PROGRAM": unable to chmod temporary file %s: %s", tmpfile, strerror(errno));
       }
+#ifdef HAVE_SELINUX
+      if(is_selinux_enabled() > 0) {
+        if(getfilecon(MOTD, &con) < 0 && errno != ENOTSUP) {
+          fprintf(stderr, PROGRAM": unable to get selinux context on %s: %s", MOTD, strerror(errno));
+        }
+        else {
+          if(con != NULL) {
+            if(fsetfilecon(ftmp, con) < 0 && errno != ENOTSUP) {
+              fprintf(stderr, PROGRAM": unable to set selinux context on %s: %s", tmpfile, strerror(errno));
+            }
+            freecon(con);
+          }
+        }
+      }
+#endif
       if(concat_files(ftmp, globres.gl_pathc, globres.gl_pathv) == 0) {
         fprintf(stderr, PROGRAM": unable to concat files. Not overwriting motd");
         if(unlink(tmpfile) < 0) {

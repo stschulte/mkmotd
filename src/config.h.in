@@ -9,5 +9,6 @@
 
 #define MOTD "@MOTD@"
 #define MOTD_DIR "@MOTD_DIR@"
+#cmakedefine HAVE_SELINUX 1
 
 #endif
