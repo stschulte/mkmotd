@@ -7,7 +7,7 @@ SET(VERSION_MINOR 0)
 SET(VERSION_PATCH 0)
 
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -pedantic -Wextra")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -pedantic -Wextra -std=gnu99")
 
 set(MOTD "/etc/motd" CACHE PATH "message of the day file (/etc/motd)")
 set(MOTD_DIR "/etc/motd.d" CACHE PATH "directory of message of day files (/etc/motd.d)")
